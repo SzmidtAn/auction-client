@@ -1,46 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
 import React from "react";
+import {
+    BrowserRouter,
+    Route
+} from "react-router-dom";
+import {CreateNewItem} from "./Pages/CreateNewItem";
+import NavBar from "./Pages/Navbar";
+import {Home} from "./Pages/Home";
+import Foot from "./Pages/Footer";
 
 export class App extends React.Component {
-
-    state = {
-        contacts: [],
-    }
-
-    componentDidMount() {
-        this.getJsonFromApiAdvanced()
-    }
-
-    getJsonFromApiAdvanced() {
-    fetch("api/ser")
-        .then(res => res.json())
-        .then(json =>
-            {
-
-                this.setState({
-                    contacts: this.state.contacts.concat(json)
-                })
-                console.log(json)
-
-            }
-        );
-
-}
-    wordToWordItem  = (word) => {
-        const title = word.name
-
-        return <WordItem key={title} title={title} showItemsDescription={this.showItemsDescription}/>;
-    }
 
     render() {
         return (
             <div className="gamePage">
-                hej
+                <BrowserRouter>
+                    <div>
+                       <NavBar />
 
-                <div className="wordList" >
-                    {this.state.contacts.map(this.wordToWordItem)}
-                </div>
+                        <Route exact path="/home" component={Home} />
+                        <Route  path="/create" component={CreateNewItem} />
+
+                        <div className="footer">
+                        <Foot />
+                        </div>
+
+                    </div>
+                </BrowserRouter>
 
             </div>
         );
@@ -49,11 +34,5 @@ export class App extends React.Component {
 
 }
 
-export const WordItem = ({title, showItemsDescription}) => {
-    return (
-        <div className="wordItem" onClick={showItemsDescription}>
-            <h2 className="header">{title}</h2>
-        </div>
-    );
-};
+
 
