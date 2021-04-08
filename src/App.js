@@ -7,6 +7,8 @@ import {CreateNewItem} from "./Pages/CreateNewItem";
 import NavBar from "./Pages/Navbar";
 import {Home} from "./Pages/Home";
 import Foot from "./Pages/Footer";
+import {ItemDetails} from "./Pages/ItemDetails";
+
 
 export class App extends React.Component {
 
@@ -19,6 +21,7 @@ export class App extends React.Component {
 
                         <Route exact path="/home" component={Home} />
                         <Route  path="/create" component={CreateNewItem} />
+                        <Route  path="/details" component={ItemDetails} />
 
                         <div className="footer">
                         <Foot />

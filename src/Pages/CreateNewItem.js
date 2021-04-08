@@ -1,6 +1,4 @@
 import React from "react";
-import {Form} from 'react-bootstrap';
-
 
 export class CreateNewItem extends React.Component {
 
@@ -44,7 +42,7 @@ export class CreateNewItem extends React.Component {
     }
 
     async saveTutorial() {
-        var data = {
+        let data = {
             name: this.state.name,
             description: this.state.description,
             currentPrice: this.state.currentPrice
