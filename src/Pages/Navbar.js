@@ -1,5 +1,7 @@
 import React from 'react';
 import {Navbar, Nav, Form, FormControl, Button} from 'react-bootstrap';
+import AuthService from "../services/auth.service";
+
 
 class NavBar extends React.Component {
     render() {
@@ -10,10 +12,13 @@ class NavBar extends React.Component {
                 <Nav className="mr-auto">
                     <Nav.Link href="/home">Home</Nav.Link>
                     <Nav.Link href="/create">Create</Nav.Link>
+                    <Nav.Link href="/addUser">Create user</Nav.Link>
+                    <Nav.Link href="/login">Login</Nav.Link>
                 </Nav>
                 <Form inline>
-                    <FormControl type="text" placeholder="Search" className="mr-sm-2" />
-                    <Button variant="outline-light">Search</Button>
+                    <Button variant="outline-light"
+                   onClick={() => AuthService.logout()}
+                    >Logout</Button>
                 </Form>
             </Navbar>
 

@@ -1,5 +1,7 @@
 import React from 'react';
 import {Button, Card, Form} from "react-bootstrap";
+import AuthService from "../services/auth.service";
+import UserService from "../services/user-service";
 
 export class ItemDetails extends React.Component {
 
@@ -24,17 +26,35 @@ export class ItemDetails extends React.Component {
     }
 
     getJsonFromApi = (id) => {
-        fetch("items/" + id)
-            .then(res => res.json())
-            .then(json =>
-                {
+            AuthService.login("uzytkfk8", "haslfv6666").then(
+                () => {
+
+                    UserService.get(id)
+                        .then(r => {
+                                this.setState({
+                                   item: r.data
+                                })
+                    this.itemToItem(r.data)
+                            }
+                        )
+
+
+                }
+                ,
+                error => {
+                    const resMessage =
+                        (error.response &&
+                            error.response.data &&
+                            error.response.data.message) ||
+                        error.message ||
+                        error.toString();
 
                     this.setState({
-                        item: json
-                    })
-                    this.itemToItem(json)
+                        loading: false,
+                        message: resMessage
+                    });
                 }
-            );
+            )
 
     }
 
@@ -43,6 +63,9 @@ export class ItemDetails extends React.Component {
         const title = item.name
         const description = item.description
         const currentPrice = item.currentPrice
+        const owner = item.owner
+        const bestOffer = item.bestOffer
+        const timeLeft = item.timeLeft
 
         this.setState({
             name: title,
@@ -51,8 +74,9 @@ export class ItemDetails extends React.Component {
             minPriceOffset: 10,
             payment: "TPay, Płacę przy odbiorze, Przelew tradycyjny",
             condition: "Nowy",
-            owner: "JACOB",
-            timeLeft: "06:12:!3"
+            owner: owner,
+           timeLeft: timeLeft,
+            bestOffer: bestOffer,
         })
     }
 
@@ -121,7 +145,7 @@ export class ItemDetails extends React.Component {
                                     <Form.Control type="number" placeholder={this.state.currentPrice + this.state.minPriceOffset + ' zl'}
                                                   value={this.state.newPrice} onChange={this.onChangePrice} />
                                     <Form.Text className="text-muted">
-                                        {this.state.timeLeft} do końca
+                                        {this.state.timeLeft} godzin do końca aukcji
                                     </Form.Text>
                                 </Form.Group>
 

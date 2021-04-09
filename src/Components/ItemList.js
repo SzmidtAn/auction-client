@@ -1,5 +1,7 @@
 import React from "react";
 import {Button, Card, CardDeck} from "react-bootstrap";
+import UserService from "../services/user-service";
+import AuthService from "../services/auth.service";
 
 export class ItemsList extends React.Component {
     constructor(props) {
@@ -20,17 +22,16 @@ export class ItemsList extends React.Component {
     }
 
     getJsonFromApi() {
-        fetch("api/items")
-            .then(res => res.json())
-            .then(json =>
-                {
 
-                    this.setState({
-                        items: this.state.items.concat(json)
-                    })
 
-                }
-            );
+                UserService.getAll()
+                    .then(r => {
+                        this.setState({
+                            items: this.state.items.concat(r.data)
+                        })
+                    }
+                )
+
 
     }
 
@@ -46,7 +47,11 @@ export class ItemsList extends React.Component {
     }
 
     handleClick = (id) => {
-        window.location.href = `details?id=${id}`;
+        if (localStorage.getItem('user')){
+      window.location.href = `details?id=${id}`;
+        }else {
+      window.location.href = `login`;
+        }
 
     }
 
@@ -54,7 +59,6 @@ export class ItemsList extends React.Component {
         return (
             <div className="itemList" >
                 <div className="itemList" >
-
 
                     <CardDeck>
                         {this.state.items.map(this.itemToItem)}
