@@ -2,6 +2,7 @@ import React from "react";
 import axios from "axios";
 import UserService from "../services/user-service";
 import authHeader from "../services/auth-header";
+import AuthService from "../services/auth.service";
 
 export class CreateNewItem extends React.Component {
 
@@ -26,6 +27,13 @@ export class CreateNewItem extends React.Component {
 
             submitted: false
         };
+    }
+
+    componentDidMount() {
+        if (!AuthService.getCurrentUser()){
+            this.props.history.push({
+                pathname: '/login'})
+        }
     }
 
 
@@ -84,24 +92,16 @@ export class CreateNewItem extends React.Component {
             currentPrice: this.state.currentPrice,
             owner: "Piotr",
             payment: "",
-            bestOffer: "Maciek",
             timeLeft: 7*24,
         };
 
 
+        UserService.createNewItem(data).then(r =>
+            this.props.history.push({
+                pathname: '/home'})
+        )
 
 
-        await fetch('/api/items', {
-            method:  'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(authHeader(), data),
-        });
-
-        this.props.history.push({
-            pathname: '/home'})
     }
 
 

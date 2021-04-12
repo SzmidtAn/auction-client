@@ -14,14 +14,18 @@ class UserService {
         return axios.get(API_URL + `items/${id}`, { headers: authHeader() });
     }
 
-    createNewItem(data) {
-        return axios.post(API_URL + 'items', { headers: authHeader(), data: data });
+    findItemByBidder(name) {
+        return axios.get(API_URL + `items`, name, { headers: authHeader() });
+    }
 
+
+    createNewItem(data) {
+        return axios.post(API_URL + 'items',  data,{ headers: authHeader() });
 
     }
 
-    update(id, data) {
-        return http.put(`/api/items/${id}`, data);
+    update(id, item) {
+        return axios.put(API_URL + `items/${id}`, item, {headers: authHeader()}  );
     }
 
     delete(id) {

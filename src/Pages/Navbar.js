@@ -14,6 +14,7 @@ class NavBar extends React.Component {
                     <Nav.Link href="/create">Create</Nav.Link>
                     <Nav.Link href="/addUser">Create user</Nav.Link>
                     <Nav.Link href="/login">Login</Nav.Link>
+                    <Nav.Link href="/profile">Profile</Nav.Link>
                 </Nav>
                 <Form inline>
                     <Button variant="outline-light"

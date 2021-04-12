@@ -1,4 +1,5 @@
 import axios from "axios";
+import authHeader from "./auth-header";
 
 const API_URL = "http://localhost:8080/api/auth/";
 
@@ -20,6 +21,7 @@ class AuthService {
 
     logout() {
         localStorage.removeItem("user");
+        window.location.reload();
     }
 
     register(username, email, password) {
@@ -31,8 +33,16 @@ class AuthService {
     }
 
     getCurrentUser() {
-        return JSON.parse(localStorage.getItem('user'));;
+        return JSON.parse(localStorage.getItem('user'));
     }
+
+    getItemsForUser(id) {
+        return axios.get(API_URL + `users/${id}`, { headers: authHeader() });
+
+    }
+
+
+
 }
 
 export default new AuthService();

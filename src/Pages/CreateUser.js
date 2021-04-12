@@ -72,8 +72,8 @@ export class CreateUser extends React.Component {
 
     async saveTutorial() {
         let data = {
-            username: "user111",
-            email: "and@gmffa.432com8",
+            username: "user222",
+            email: "and@gffa.432com8",
             password: "password",
             roles: 'admin',
             message: "User regisfvvfteedsfully!",
@@ -138,13 +138,12 @@ export class CreateUser extends React.Component {
 
 
                     <div className="form-group">
-                        <label htmlFor="price">Cena wywolawcza</label>
+                        <label htmlFor="price">Nazwa uzytkownika</label>
                         <input
                             type="number"
                             className="form-control"
                             id="price"
                             required
-                            placeholder="0,00"
                             value={this.state.currentPrice}
                             onChange={this.onChangePrice}
                             name="Price"
@@ -155,7 +154,7 @@ export class CreateUser extends React.Component {
 
 
                     <button onClick={this.saveTutorial} className="btn btn-success">
-                        Submit
+                        Utworz konto
                     </button>
                 </div>
 

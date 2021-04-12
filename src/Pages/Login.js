@@ -42,7 +42,7 @@ export class Login extends React.Component {
 
      handleLogin() {
         let data = {
-            username: "user111",
+            username: "nowa nazwa",
             email: "and@gmffal.com8",
             password: "password",
             roles: 'admin',

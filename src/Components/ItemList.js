@@ -47,12 +47,7 @@ export class ItemsList extends React.Component {
     }
 
     handleClick = (id) => {
-        if (localStorage.getItem('user')){
       window.location.href = `details?id=${id}`;
-        }else {
-      window.location.href = `login`;
-        }
-
     }
 
     render() {

@@ -8,7 +8,6 @@ export class ItemDetails extends React.Component {
     constructor(id) {
         super(id);
 
-
     this.state = {
         numOfOffers: 0,
         newPrice: ""
@@ -16,6 +15,11 @@ export class ItemDetails extends React.Component {
 
     }
     componentDidMount() {
+
+            if (!AuthService.getCurrentUser()){
+                this.props.history.push({
+                    pathname: '/login'})
+            }else {
         const search = this.props.location.search; // returns the URL query String
         const params = new URLSearchParams(search);
         const IdFromURL = params.get('id');
@@ -23,12 +27,10 @@ export class ItemDetails extends React.Component {
            id: IdFromURL
         })
         this.getJsonFromApi(IdFromURL)
+            }
     }
 
     getJsonFromApi = (id) => {
-            AuthService.login("uzytkfk8", "haslfv6666").then(
-                () => {
-
                     UserService.get(id)
                         .then(r => {
                                 this.setState({
@@ -37,25 +39,6 @@ export class ItemDetails extends React.Component {
                     this.itemToItem(r.data)
                             }
                         )
-
-
-                }
-                ,
-                error => {
-                    const resMessage =
-                        (error.response &&
-                            error.response.data &&
-                            error.response.data.message) ||
-                        error.message ||
-                        error.toString();
-
-                    this.setState({
-                        loading: false,
-                        message: resMessage
-                    });
-                }
-            )
-
     }
 
 
@@ -99,16 +82,12 @@ export class ItemDetails extends React.Component {
     updateItem = async () => {
         let data = this.state.item
         data.currentPrice = this.state.newPrice
+        data.bestOffer = AuthService.getCurrentUser().username
         let id = data.id
 
-        await fetch("items/" + id, {
-            method: 'PUT',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data),
-        })
+        await UserService.update(id, data )
+
+
     }
 
     render() {
