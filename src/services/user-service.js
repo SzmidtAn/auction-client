@@ -7,7 +7,11 @@ const API_URL = 'http://localhost:8080/api/';
 class UserService {
 
     getAll() {
-        return axios.get(API_URL + 'items', { headers: authHeader() });
+        return axios.get(API_URL + 'items', { headers: authHeader() })
+            .then(response => {
+                    localStorage.setItem("data", JSON.stringify(response.data));
+                return response.data;
+            });
     }
 
     get(id) {
@@ -40,6 +44,9 @@ class UserService {
         return http.get(`/api/items?title=${title}`);
     }
 
+    getCurrentData() {
+        return JSON.parse(localStorage.getItem('data'));
+    }
 
 }
 

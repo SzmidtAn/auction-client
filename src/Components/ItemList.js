@@ -6,11 +6,9 @@ import AuthService from "../services/auth.service";
 export class ItemsList extends React.Component {
     constructor(props) {
         super(props);
-        this.handleClick = this.handleClick.bind(this);
 
         this.state = {
             items: [],
-
         };
     }
 
@@ -18,23 +16,22 @@ export class ItemsList extends React.Component {
 
 
     componentDidMount() {
-        this.getJsonFromApi()
+        this.getAndSaveDataFromApi()
     }
 
-    getJsonFromApi() {
-
-
+    getAndSaveDataFromApi() {
                 UserService.getAll()
-                    .then(r => {
-                        this.setState({
-                            items: this.state.items.concat(r.data)
-                        })
-                    }
+                    .then(r =>
+                   this.getDataFromLocalStorage()
                 )
-
-
     }
 
+    getDataFromLocalStorage = () => {
+        const data = UserService.getCurrentData()
+        this.setState({
+            items: data
+        })
+    }
 
 
     itemToItem  = (item) => {
@@ -46,20 +43,18 @@ export class ItemsList extends React.Component {
         return <Item key={title} title={title} description={description} price={currentPrice} id={id} showItemsDescription={this.handleClick}/>;
     }
 
-    handleClick = (id) => {
-      window.location.href = `details?id=${id}`;
+    handleClick = (title, id) => {
+      window.location.href = `details?${title}&id=${id}`;
     }
 
     render() {
         return (
             <div className="itemList" >
-                <div className="itemList" >
 
                     <CardDeck>
                         {this.state.items.map(this.itemToItem)}
                     </CardDeck>
                 </div>
-            </div>
         );
     }
 
@@ -69,7 +64,7 @@ export class ItemsList extends React.Component {
 
 export const Item = ({title, description, price, id, showItemsDescription}) => {
     return (
-        <div className="item" onClick={() => showItemsDescription(id)}>
+        <div className="item" onClick={() => showItemsDescription(title, id)}>
             <Card style={{ width: '18rem' }}>
                 <Card.Img variant="top" src="https://assets.catawiki.nl/assets/2021/2/20/c/c/b/thumb2_ccb7d083-8b25-4029-a9f2-292543e4790c.jpg" />
                 <Card.Body>

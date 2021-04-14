@@ -9,7 +9,6 @@ export class ItemDetails extends React.Component {
         super(id);
 
     this.state = {
-        numOfOffers: 0,
         newPrice: ""
     }
 
@@ -23,22 +22,27 @@ export class ItemDetails extends React.Component {
         const search = this.props.location.search; // returns the URL query String
         const params = new URLSearchParams(search);
         const IdFromURL = params.get('id');
-        this.setState({
-           id: IdFromURL
-        })
-        this.getJsonFromApi(IdFromURL)
+        this.getDataFromApi(IdFromURL)
             }
     }
 
-    getJsonFromApi = (id) => {
-                    UserService.get(id)
-                        .then(r => {
-                                this.setState({
-                                   item: r.data
-                                })
-                    this.itemToItem(r.data)
-                            }
-                        )
+    getDataFromApi = (id) => {
+        let items = []
+         id = parseInt(id, 10)
+        items = UserService.getCurrentData()
+
+        const item =  this.findArrayElementById(items, id)
+        this.itemToItem(item)
+
+        this.setState({
+            item: item
+        })
+    }
+
+    findArrayElementById(array, id) {
+        return array.find((element) => {
+            return element.id === id;
+        })
     }
 
 
@@ -49,11 +53,13 @@ export class ItemDetails extends React.Component {
         const owner = item.owner
         const bestOffer = item.bestOffer
         const timeLeft = item.timeLeft
+        const numOfOffers = item.numOfOffers
 
         this.setState({
             name: title,
             description: description,
             currentPrice: currentPrice,
+            numOfOffers: numOfOffers,
             minPriceOffset: 10,
             payment: "TPay, Płacę przy odbiorze, Przelew tradycyjny",
             condition: "Nowy",
@@ -65,7 +71,7 @@ export class ItemDetails extends React.Component {
 
     handleClick = () => {
         if (this.state.currentPrice < this.state.newPrice){
-
+        console.log(this.state.currentPrice)
         this.setState({
             currentPrice: this.state.newPrice
         })
@@ -84,10 +90,7 @@ export class ItemDetails extends React.Component {
         data.currentPrice = this.state.newPrice
         data.bestOffer = AuthService.getCurrentUser().username
         let id = data.id
-
         await UserService.update(id, data )
-
-
     }
 
     render() {

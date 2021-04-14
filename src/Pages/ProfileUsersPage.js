@@ -56,6 +56,8 @@ export class ProfileUsersPage extends React.Component {
     render() {
         return (
             <div className="submit-form">
+                <h2>Profil uzytkownika</h2>
+
                 Nazwa uzytkownika: <h2>{this.state.user.username}</h2>
                 Email: <h3>{this.state.user.email}</h3>
                 Data dolaczenia: <h4>{this.state.user.time}</h4>

@@ -10,7 +10,9 @@ import Foot from "./Pages/Footer";
 import {ItemDetails} from "./Pages/ItemDetails";
 import {CreateUser} from "./Pages/CreateUser";
 import {Login} from "./Pages/Login";
+import {SearchPage} from "./Pages/SearchPage";
 import {ProfileUsersPage} from "./Pages/ProfileUsersPage";
+import {Search} from "./Components/Search";
 
 
 export class App extends React.Component {
@@ -32,6 +34,7 @@ export class App extends React.Component {
                         <Route  path="/logout" component={Login} />
                         <Route  path="/profile" component={ProfileUsersPage} />
                         <Route path="/details" component={ItemDetails}  />
+                        <Route path="/search" component={SearchPage}  />
 
 
                         <div className="footer">

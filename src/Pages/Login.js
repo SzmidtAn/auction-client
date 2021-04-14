@@ -93,6 +93,7 @@ export class Login extends React.Component {
     render() {
         return (
             <div className="submit-form">
+            <h2>Logowanie</h2>
 
 
                 <div className="form-group">

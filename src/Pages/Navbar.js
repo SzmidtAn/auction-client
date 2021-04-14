@@ -11,16 +11,16 @@ class NavBar extends React.Component {
                 <Navbar.Brand href="/home">Auctions</Navbar.Brand>
                 <Nav className="mr-auto">
                     <Nav.Link href="/home">Home</Nav.Link>
-                    <Nav.Link href="/create">Create</Nav.Link>
-                    <Nav.Link href="/addUser">Create user</Nav.Link>
-                    <Nav.Link href="/login">Login</Nav.Link>
-                    <Nav.Link href="/profile">Profile</Nav.Link>
+                    <Nav.Link href="/create">Dodaj aukcje</Nav.Link>
+                    <Nav.Link href="/addUser">Rejestracja</Nav.Link>
+                    <Nav.Link href="/login">Logowanie</Nav.Link>
+                    <Nav.Link href="/profile">Profil</Nav.Link>
+                    <Nav.Link href="/search">Wyszukiwarka</Nav.Link>
                 </Nav>
-                <Form inline>
-                    <Button variant="outline-light"
-                   onClick={() => AuthService.logout()}
-                    >Logout</Button>
-                </Form>
+
+                <Button variant="outline-light"
+                        onClick={() => AuthService.logout()}
+                >Logout</Button>
             </Navbar>
 
         </div>

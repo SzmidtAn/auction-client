@@ -122,6 +122,8 @@ export class CreateNewItem extends React.Component {
     render() {
         return (
             <div className="submit-form">
+                <h2>Dodaj nowa aukcje</h2>
+
 
                 <div>
                     <form>
